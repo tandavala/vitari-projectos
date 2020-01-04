@@ -1,3 +1,5 @@
+import * as actions from "../actions/actionsType";
+
 const initState = {
   //projects data
   projects: [
@@ -7,12 +9,14 @@ const initState = {
   ]
 };
 
-const projectReducer = (state = initState, action) => {
-  switch (action.type) {
-    case "CREATE_PROJECT":
-      console.log("Create project", action.project);
+const projectReducer = (state = initState, { type, project }) => {
+  switch (type) {
+    case "CREATE_PROJECT_SUCCESS":
+      console.log("create project success", project);
+      return state;
+    default:
+      return state;
   }
-  return state;
 };
 
 export default projectReducer;
