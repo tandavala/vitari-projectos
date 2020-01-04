@@ -34,3 +34,23 @@ exports.projectCreated = functions.firestore
     // Add notitication object
     return createNotification(notity);
   });
+
+// function that controls authentication
+exports.userJoined = functions.auth.user().onCreate(user => {
+  return admin
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then(doc => {
+      const newUser = doc.data();
+      const notify = {
+        content: "Começou a usar aplicação ",
+        user: `${newUser.firstName} ${newUser.lastName}`,
+        time: admin.firestore.FieldValue.serverTimestamp()
+      };
+
+      // add notification object
+      return createNotification(notify);
+    });
+});
