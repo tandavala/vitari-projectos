@@ -18,23 +18,23 @@ const createNotification = notification => {
     .add(notification)
     .then(doc => console.log("adicionado uma notificação ", doc));
 };
-// functions that controls projects collection
+
+//function that controls projects collection
 exports.projectCreated = functions.firestore
   .document("projects/{projectId}")
   .onCreate(doc => {
-    // Access the added project
+    //Access the added project.
     const project = doc.data();
-    // Create the notification object
-    const notity = {
+    //Create the notification object
+    const notify = {
       content: "Novo Projecto foi criado",
-      user: `${project.authorNome} ${project.authorLastName}`,
+      user: `${project.authorName} ${project.authorLastName}`,
       time: admin.firestore.FieldValue.serverTimestamp()
     };
 
-    // Add notitication object
-    return createNotification(notity);
+    //add notification object
+    return createNotification(notify);
   });
-
 // function that controls authentication
 exports.userJoined = functions.auth.user().onCreate(user => {
   return admin

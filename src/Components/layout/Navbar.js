@@ -17,10 +17,10 @@ const Navbar = props => {
   );
   return (
     //navbar forming class
-    <nav className="nav-wrapper light-blue lighten-2">
+    <nav className="nav-wrapper grey darken-3">
       <div className="container">
         <Link to="/" className="brand-logo">
-          Project Blog
+          Vitari Projectos
         </Link>
         {links}
       </div>

@@ -11,7 +11,7 @@ const ProjectSummary = ({ project }) => {
         <div className="card-content grey-text text-darken-3">
           <span className="card-title ">{project.title}</span>
           <p>
-            Posted by The {project.authorName} {project.authorLastName}
+            Publicado por {project.authorName} {project.authorLastName}
           </p>
           {/* get date */}
           <p className="grey-text">
