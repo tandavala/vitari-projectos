@@ -2,6 +2,9 @@
 export const createProject = project => {
   //We'll access the firestore.
   return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //We get the profile and uid values.
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
     //asynchronous operation with dispatch.
     //We're accessing the firestore.
     const firestore = getFirestore();
@@ -10,8 +13,9 @@ export const createProject = project => {
       .collection("projects")
       .add({
         ...project,
-        authorName: "pckurdu",
-        authorId: 123,
+        authorName: profile.firstName,
+        authorLastName: profile.lastName,
+        authorId: authorId,
         createdAt: new Date()
       })
       .then(() => {

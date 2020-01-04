@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 //import connect module
 import { connect } from "react-redux";
@@ -7,9 +8,13 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 //to merge
 import { compose } from "redux";
+//import Redirect module
+import { Redirect } from "react-router-dom";
 
 const ProjectDetails = props => {
-  const { project } = props;
+  const { project, auth } = props;
+  //If uid is empty, user is not logged in.
+  if (!auth.uid) return <Redirect to="/signin" />;
   if (project) {
     return (
       // details of a project into the card structure.
@@ -20,8 +25,14 @@ const ProjectDetails = props => {
             <p>{project.content}</p>
           </div>
           <div className="card-action grey lighten-4 grey-text">
-            <div>Posted by {project.authorName}</div>
-            <div>2nd September, 2am</div>
+            <div>
+              Posted by {project.authorName} {project.authorLastName}
+            </div>
+            <div>
+              <p className="grey-text">
+                {moment(project.createdAt.toDate().toString()).calendar()}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -31,8 +42,13 @@ const ProjectDetails = props => {
   }
 };
 
+//function that gets data from store
 const mapStateToProps = (state, ownProps) => {
-  // console.log(state);
+  //the first value written to the console comes from the store.
+  //console.log(state);
+  //the second value written to the console comes from this component's props.
+  //console.log(ownProps);
+
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id] : null;
@@ -44,9 +60,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    {
-      collection: "projects"
-    }
-  ])
+  firestoreConnect([{ collection: "projects" }])
 )(ProjectDetails);

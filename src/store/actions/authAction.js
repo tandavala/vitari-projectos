@@ -38,3 +38,38 @@ export const signOut = () => {
       });
   };
 };
+
+//action to use component
+export const signUp = userNew => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //for firebase authentication
+    const firebase = getFirebase();
+    //for firebase firestore
+    const firestore = getFirestore();
+
+    //We are adding users to firebase.
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(userNew.email, userNew.password)
+      .then(res => {
+        //Collection and document creation in firestore
+        return firestore
+          .collection("users")
+          .doc(res.user.uid)
+          .set({
+            //create field in document
+            firstName: userNew.firstName,
+            lastName: userNew.lastName,
+            monogram: userNew.firstName[0] + userNew.lastName[0]
+          });
+        //if success
+      })
+      .then(() => {
+        dispatch({ type: "SIGNUP_SUCCESS" });
+        //if error
+      })
+      .catch(err => {
+        dispatch({ type: "SIGNUP_ERROR", err });
+      });
+  };
+};
