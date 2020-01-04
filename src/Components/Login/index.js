@@ -8,7 +8,7 @@ import {
   Input,
   InputLabel
 } from "@material-ui/core";
-//import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link, withRouter } from "react-router-dom";
 
@@ -64,7 +64,7 @@ function Login(props) {
     <main className={classes.main}>
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <h2>Lockec Icon</h2>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in

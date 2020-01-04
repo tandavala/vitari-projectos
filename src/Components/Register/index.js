@@ -8,7 +8,7 @@ import {
   Input,
   InputLabel
 } from "@material-ui/core";
-//import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link, withRouter } from "react-router-dom";
 const styles = theme => ({
@@ -67,7 +67,7 @@ function Register(props) {
     <main className={classes.main}>
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <p>Locked Icon</p>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Register Account
