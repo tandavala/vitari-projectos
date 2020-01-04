@@ -21,3 +21,20 @@ export const logIn = information => {
       });
   };
 };
+
+//An action called signOut
+export const signOut = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    //We're accessing the firebase
+    const firebase = getFirebase();
+
+    //logout operation occurs.
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        //forwarding to reducer.
+        dispatch({ type: "SIGNOUT_SUCCESS" });
+      });
+  };
+};
